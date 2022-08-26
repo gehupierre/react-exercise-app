@@ -18,7 +18,7 @@ export default function Nav() {
         </div>
         <a
           href=""
-          className="hidden md:block p-3 px-6 pt-3 text-white bg-blue-400 rounded-full baseline hover:bg-blue-800"
+          className="hidden md:block-disabled p-3 px-6 pt-3 text-white bg-blue-400 rounded-full baseline hover:bg-blue-800"
         >
           Get a quote
         </a>

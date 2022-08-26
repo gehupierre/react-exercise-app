@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Home() {
   return (
     <section id="hero">
@@ -11,12 +13,12 @@ export default function Home() {
             bring complex software projects to life.
           </p>
           <div className="flex justify-center md:justify-start">
-            <a
-              href=""
+            <Link
+              to=""
               className="p-3 px-6 pt-3 text-white bg-blue-400 rounded-full baseline hover:bg-blue-800"
             >
               Sign In
-            </a>
+            </Link>
           </div>
         </div>
       </div>

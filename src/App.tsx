@@ -3,7 +3,7 @@ import { Routes, Route, Link } from "react-router-dom";
 
 import Footer from "./components/footer";
 import Nav from "./components/nav";
-import Home from "./pages/home";
+import Home from "./pages/Home";
 
 function App() {
   return (
