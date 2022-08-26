@@ -1,12 +1,14 @@
 import React from "react";
 
+import Footer from "./components/footer";
+import Nav from "./components/nav";
+
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1 className="text-3xl font-bold underline">Hello world!</h1>
-      </header>
-    </div>
+    <>
+      <Nav />
+      <Footer />
+    </>
   );
 }
 
