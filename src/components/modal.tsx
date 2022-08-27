@@ -3,8 +3,7 @@ import AppContext from "../state/context";
 
 export default function Modal() {
   const { modal, closeModal } = useContext(AppContext);
-  const title = modal?.title;
-  const content = modal?.content;
+  const { title, content, actions = [] } = modal ?? {};
 
   return (
     <div
@@ -28,7 +27,7 @@ export default function Modal() {
           <div
             className={`${
               content ? "opacity-100 " : "opacity-0"
-            } transition-opacity ease-in-out delay-150 relative bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-lg sm:w-full`}
+            } relative bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-opacity ease-in-out duration-700 delay-100 sm:my-8 sm:max-w-lg sm:w-full md:max-w-2xl`}
           >
             <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
               <div className="sm:flex sm:items-start">
@@ -44,12 +43,15 @@ export default function Modal() {
               </div>
             </div>
             <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-              <button
-                type="button"
-                className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-              >
-                Deactivate
-              </button>
+              {actions.map(({ label, onClick }) => (
+                <button
+                  onClick={onClick}
+                  type="button"
+                  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
+                >
+                  {label}
+                </button>
+              ))}
               <button
                 type="button"
                 onClick={closeModal}
