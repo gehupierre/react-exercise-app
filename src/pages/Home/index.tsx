@@ -1,6 +1,10 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import AppContext from "../../state/context";
 
 export default function Home() {
+  const { modal, openModal = () => {}, closeModal } = useContext(AppContext);
+
   return (
     <section id="hero">
       <div className="container flex flex-col-reverse md:flex-row items-center px-6 mx-auto mt-10 space-y-0 md:space-y-0">
@@ -15,6 +19,12 @@ export default function Home() {
           <div className="flex justify-center md:justify-start">
             <Link
               to=""
+              onClick={({ target }) => {
+                openModal({
+                  content: <div>Modal Content</div>,
+                  title: "Sign In Title",
+                });
+              }}
               className="p-3 px-6 pt-3 text-white bg-blue-400 rounded-full baseline hover:bg-blue-800"
             >
               Sign In
