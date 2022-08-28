@@ -1,6 +1,6 @@
 import { ReactElement, useContext } from "react";
-import AppContext from "../state/context";
-import { ModalStateProps } from "../types/context";
+import AppContext from "../../state/context";
+import { ModalStateProps } from "../../types/context";
 
 interface ModalBodyProps extends ModalStateProps {
   content?: ReactElement;
