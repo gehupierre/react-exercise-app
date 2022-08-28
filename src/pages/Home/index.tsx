@@ -1,9 +1,11 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
+
 import AppContext from "../../state/context";
+import SignIn from "../../components/modal/content/sign-in";
 
 export default function Home() {
-  const { modal, openModal = () => {}, closeModal } = useContext(AppContext);
+  const { openModal = () => {} } = useContext(AppContext);
 
   return (
     <section id="hero">
@@ -19,10 +21,9 @@ export default function Home() {
           <div className="flex justify-center md:justify-start">
             <Link
               to=""
-              onClick={({ target }) => {
+              onClick={() => {
                 openModal({
-                  content: <div>Modal Content</div>,
-                  title: "Sign In Title",
+                  component: SignIn,
                 });
               }}
               className="p-3 px-6 pt-3 text-white bg-blue-400 rounded-full baseline hover:bg-blue-800"
