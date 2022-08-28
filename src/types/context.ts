@@ -1,17 +1,11 @@
-import { ReactElement } from "react";
 
 export interface ModalStateProps {
-  content?: ReactElement;
-  title?: string;
-  actions?: [{
-    label: string;
-    onClick: React.MouseEventHandler<HTMLButtonElement> | undefined
-  }]
+  component?: any;
 }
  
 export interface AppContextProps {
   modal?: ModalStateProps | undefined;
-  openModal?: (modalData: ModalStateProps) => void;
+  openModal?: (component: ModalStateProps) => void;
   closeModal?: () => void;
 }
  
