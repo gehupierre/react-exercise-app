@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import AppContext from "../../state/context";
 import SignIn from "../../components/modal/content/sign-in";
+import SignUp from "../../components/modal/content/sign-up";
 
 export default function Home() {
   const { isLoggedIn, openModal = () => {} } = useContext(AppContext);
@@ -40,6 +41,22 @@ export default function Home() {
                 >
                   Sign In
                 </Link>
+                <p className="my-6">
+                  {"Don't have an account? "}
+                  <Link
+                    to=""
+                    onClick={() => {
+                      openModal({
+                        component: SignUp,
+                        size: "full",
+                      });
+                    }}
+                    className="text-blue-800 hover:text-blue-400"
+                  >
+                    Click here
+                  </Link>
+                  {", to create an account"}
+                </p>
               </div>
             )}
           </div>

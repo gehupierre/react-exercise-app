@@ -6,10 +6,8 @@ import { SignInSendProps } from "../../../types/context";
 import { validEmail } from "../../../utils/validate";
 import { EmailInput, PasswordInput } from "../../form/inputs";
 
-interface SignInFormError {
-  email: string;
-  password: string;
-}
+interface SignInFormError extends SignInSendProps {}
+
 interface SignInFormProps {
   error?: SignInFormError | undefined;
   data?: any;

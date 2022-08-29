@@ -4,12 +4,20 @@ export interface ModalStateProps {
   size?: string;
 }
  
-export interface SignInSendProps {
+export interface SignInFormField {
   email: string;
   password: string;
 }
 
-export interface UserProps extends SignInSendProps {
+export interface SignUpFormField {
+  email: string;
+  password: string;
+  passwordConfirm: string;
+}
+
+export interface SignInSendProps extends SignInFormField {}
+
+export interface UserProps extends SignInFormField {
   uid: string;
   token: string;
   displayName: string;

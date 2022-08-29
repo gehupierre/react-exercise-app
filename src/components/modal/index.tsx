@@ -86,7 +86,7 @@ export default function Modal() {
           <div
             className={`${
               component ? "opacity-100 " : "opacity-0"
-            } relative bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-opacity ease-in-out duration-700 delay-100 sm:my-8 w-${size} md:max-w-4/5 sm:max-w-lg md:max-w-2xl`}
+            } relative bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-opacity ease-in-out duration-700 delay-100 sm:my-8 ${size}`}
           >
             {component ? <ModalComponent /> : null}
           </div>
