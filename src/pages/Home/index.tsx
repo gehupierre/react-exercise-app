@@ -24,6 +24,7 @@ export default function Home() {
               onClick={() => {
                 openModal({
                   component: SignIn,
+                  size: "96",
                 });
               }}
               className="p-3 px-6 pt-3 text-white bg-blue-400 rounded-full baseline hover:bg-blue-800"

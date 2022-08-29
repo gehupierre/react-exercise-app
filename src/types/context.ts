@@ -1,6 +1,7 @@
 
 export interface ModalStateProps {
   component?: any;
+  size?: string;
 }
  
 export interface AppContextProps {

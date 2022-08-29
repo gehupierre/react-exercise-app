@@ -22,8 +22,8 @@ export function ModalBody({
 }: ModalBodyProps) {
   return (
     <>
-      <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-        <div className="sm:flex sm:items-start">
+      <div className="bg-white px-4 pt-5 pb-1 sm:px-6 sm:pb-1">
+        <div className="">
           <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
             <h3
               className="text-lg leading-6 font-medium text-gray-900"
@@ -39,6 +39,7 @@ export function ModalBody({
         {actions &&
           actions.map(({ label, onClick }) => (
             <button
+              key={label}
               onClick={onClick}
               type="button"
               className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
@@ -60,7 +61,7 @@ export function ModalBody({
 
 export default function Modal() {
   const { modal, closeModal } = useContext(AppContext);
-  const { component } = modal ?? {};
+  const { component, size = "full" } = modal ?? {};
   const ModalComponent = component;
 
   return (
@@ -85,7 +86,7 @@ export default function Modal() {
           <div
             className={`${
               component ? "opacity-100 " : "opacity-0"
-            } relative bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-opacity ease-in-out duration-700 delay-100 sm:my-8 sm:max-w-lg sm:w-full md:max-w-2xl`}
+            } relative bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-opacity ease-in-out duration-700 delay-100 sm:my-8 w-${size} md:max-w-4/5 sm:max-w-lg md:max-w-2xl`}
           >
             {component ? <ModalComponent closeModal={closeModal} /> : null}
           </div>
