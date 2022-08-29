@@ -1,20 +1,19 @@
-import { Component } from "react";
+import { useContext, useState } from "react";
+
 import { ModalBody } from "..";
+import AppContext from "../../../state/context";
+import { SignInSendProps } from "../../../types/context";
 import { validEmail } from "../../../utils/validate";
 import { EmailInput, PasswordInput } from "../../form/inputs";
 
 interface SignInFormError {
   email: string;
   password: string;
-  [key: string]: string;
 }
 interface SignInFormProps {
   error?: SignInFormError | undefined;
   data?: any;
   update?: (e: React.FormEvent<HTMLInputElement>) => void;
-}
-interface SignInProps {
-  closeModal: () => void;
 }
 
 function SignInForm({ error, data, update }: SignInFormProps) {
@@ -44,22 +43,17 @@ function SignInForm({ error, data, update }: SignInFormProps) {
   );
 }
 
-class SignIn extends Component<SignInProps> {
-  state = {
-    email: "",
-    password: "",
-    error: {
-      email: "",
-      password: "",
-    },
-  };
-  handleClick() {
-    const { closeModal = () => {} } = this.props;
+function SignIn() {
+  const { closeModal, performSignIn } = useContext(AppContext);
+  const [error, setError] = useState<SignInFormError>();
+  const [data = { email: "", password: "" }, setData] =
+    useState<SignInSendProps>();
+  function handleClick() {
     const error: SignInFormError = {
       email: "",
       password: "",
     };
-    const { email, password } = this.state;
+    const { email, password } = data;
     // validate
     if (!validEmail(email)) {
       error.email = "Please enter a valid email.";
@@ -70,52 +64,39 @@ class SignIn extends Component<SignInProps> {
     }
 
     if (Object.values(error).some((val) => !!val)) {
-      this.setState({ error });
+      setError(error);
       return;
     }
 
-    // Do something with Sign in data
-    closeModal();
+    performSignIn({ email, password }, closeModal);
   }
-  updateFormData(e: React.FormEvent<HTMLInputElement>) {
+  function updateFormData(e: React.FormEvent<HTMLInputElement>) {
     const { name = "", value = "" } = e.target as HTMLInputElement;
     if (value) {
-      const { error } = this.state;
-      this.setState({
+      setData({
+        ...data,
         [name]: value,
-        error: {
-          ...error,
-          [name]: "",
-        },
       });
     }
   }
-  render() {
-    const { closeModal = () => {} } = this.props;
-    const { error, ...data } = this.state;
-    const title = "Please sign in";
-    const content = (
-      <SignInForm
-        {...{ error, data, update: this.updateFormData.bind(this) }}
-      />
-    );
+  const title = "Please sign in";
+  const content = <SignInForm {...{ error, data, update: updateFormData }} />;
 
-    return (
-      <ModalBody
-        {...{
-          title,
-          content,
-          closeModal,
-          actions: [
-            {
-              label: title,
-              onClick: this.handleClick.bind(this),
-            },
-          ],
-        }}
-      />
-    );
-  }
+  return (
+    <ModalBody
+      {...{
+        title,
+        content,
+        closeModal,
+        actions: [
+          {
+            label: title,
+            onClick: handleClick,
+          },
+        ],
+      }}
+    />
+  );
 }
 
 export default SignIn;

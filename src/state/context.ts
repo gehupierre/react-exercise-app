@@ -5,6 +5,8 @@ import { AppContextProps } from "../types/context";
 const initState: AppContextProps = {
   modal: undefined,
   openModal: () => {},
+  closeModal: () => {},
+  performSignIn: () => {},
 };
 
 const AppContext = createContext<AppContextProps>(initState);

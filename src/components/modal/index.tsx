@@ -60,7 +60,7 @@ export function ModalBody({
 }
 
 export default function Modal() {
-  const { modal, closeModal } = useContext(AppContext);
+  const { modal } = useContext(AppContext);
   const { component, size = "full" } = modal ?? {};
   const ModalComponent = component;
 
@@ -88,7 +88,7 @@ export default function Modal() {
               component ? "opacity-100 " : "opacity-0"
             } relative bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-opacity ease-in-out duration-700 delay-100 sm:my-8 w-${size} md:max-w-4/5 sm:max-w-lg md:max-w-2xl`}
           >
-            {component ? <ModalComponent closeModal={closeModal} /> : null}
+            {component ? <ModalComponent /> : null}
           </div>
         </div>
       </div>

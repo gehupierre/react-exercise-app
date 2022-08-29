@@ -1,7 +1,8 @@
 import { ReactNode, useState } from "react";
 import { initializeApp } from "firebase/app";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
-import { ModalStateProps } from "../types/context";
+import { ModalStateProps, SignInSendProps } from "../types/context";
 import AppContext from "./context";
 
 const {
@@ -37,6 +38,19 @@ export default function AppProvider({ children }: Props) {
         modal: appModal,
         openModal: (modalData: ModalStateProps) => setAppModal(modalData),
         closeModal: () => setAppModal(undefined),
+        performSignIn: ({ email, password }: SignInSendProps, callback) => {
+          const auth = getAuth();
+          signInWithEmailAndPassword(auth, email, password)
+            .then(({ user }) => {
+              console.log({ user });
+              // user: {accessToken, email, displayName, emailVerified, phoneNumber, photoURL, providerData: [], providerId, uid}
+            })
+            .catch((error) => {
+              const errorCode = error.code;
+              const errorMessage = error.message;
+              console.log({ errorMessage, errorCode, error });
+            });
+        },
       }}
     >
       {children}
