@@ -1,8 +1,12 @@
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { initializeApp } from "firebase/app";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  User as FirebaseUser,
+} from "firebase/auth";
 
-import { ModalStateProps, SignInSendProps } from "../types/context";
+import { ModalStateProps, SignInSendProps, UserProps } from "../types/context";
 import AppContext from "./context";
 
 const {
@@ -31,19 +35,43 @@ interface Props {
 
 export default function AppProvider({ children }: Props) {
   const [appModal, setAppModal] = useState<ModalStateProps>();
+  const [appUser, setAppUser] = useState<UserProps>();
+
+  useEffect(() => {
+    if (appUser) {
+      localStorage.setItem("app-user", JSON.stringify(appUser));
+    } else {
+      const savedUserStr = localStorage.getItem("app-user") || "";
+      const savedUser = savedUserStr && JSON.parse(savedUserStr);
+      if (savedUser) {
+        setAppUser(savedUser);
+      }
+    }
+  }, [appUser]);
 
   return (
     <AppContext.Provider
       value={{
         modal: appModal,
+        user: appUser,
         openModal: (modalData: ModalStateProps) => setAppModal(modalData),
         closeModal: () => setAppModal(undefined),
         performSignIn: ({ email, password }: SignInSendProps, callback) => {
           const auth = getAuth();
           signInWithEmailAndPassword(auth, email, password)
-            .then(({ user }) => {
+            .then(async ({ user }) => {
               console.log({ user });
-              // user: {accessToken, email, displayName, emailVerified, phoneNumber, photoURL, providerData: [], providerId, uid}
+              const { email, uid, displayName } = user as FirebaseUser;
+              const token = await user.getIdToken();
+
+              setAppUser({
+                uid,
+                token,
+                password: "",
+                email: email ?? "",
+                displayName: displayName ?? "",
+              });
+              callback();
             })
             .catch((error) => {
               const errorCode = error.code;
