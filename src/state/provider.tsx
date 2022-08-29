@@ -79,6 +79,9 @@ export default function AppProvider({ children }: Props) {
               console.log({ errorMessage, errorCode, error });
             });
         },
+        isLoggedIn: () => {
+          return !!appUser && !!appUser.token;
+        },
       }}
     >
       {children}

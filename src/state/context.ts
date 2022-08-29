@@ -8,6 +8,7 @@ const initState: AppContextProps = {
   openModal: () => {},
   closeModal: () => {},
   performSignIn: () => {},
+  isLoggedIn: () => false,
 };
 
 const AppContext = createContext<AppContextProps>(initState);

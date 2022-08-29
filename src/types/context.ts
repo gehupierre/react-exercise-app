@@ -21,4 +21,5 @@ export interface AppContextProps {
   openModal: (component: ModalStateProps) => void;
   closeModal: () => void;
   performSignIn: (signInCreds: SignInSendProps, callback: () => void) => void;
+  isLoggedIn: () => boolean;
 }
