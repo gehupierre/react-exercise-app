@@ -99,6 +99,7 @@ function SignUp() {
     },
     setData,
   ] = useState<SignUpFormField>();
+
   function handleClick() {
     const error: SignUpFormError = {
       email: "",
@@ -113,10 +114,10 @@ function SignUp() {
     }
 
     const passwordErrors = getValidationErrors(password, passwordConfirm);
+
     if (
-      passwordErrors.length &&
-      passwordErrors.length === 1 &&
-      passwordErrors[0].id !== 5
+      passwordErrors.length > 1 ||
+      (passwordErrors.length === 1 && passwordErrors[0].id !== 5)
     ) {
       error.password = "Please enter a valid password.";
     }
@@ -134,6 +135,7 @@ function SignUp() {
 
     // performSignUp({ email, password }, closeModal);
   }
+
   function updateFormData(e: React.FormEvent<HTMLInputElement>) {
     const { name = "", value = "" } = e.target as HTMLInputElement;
     if (value) {
